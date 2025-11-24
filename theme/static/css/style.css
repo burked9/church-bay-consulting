@@ -92,14 +92,37 @@ nav a:hover {
     color: var(--secondary-color);
 }
 
+/* Logo */
+.site-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.site-logo {
+    height: 50px;
+    margin-right: 15px;
+    width: auto;
+}
+
 /* Hero Section (Home) */
 .hero {
     text-align: center;
-    padding: 4rem 0;
+    padding: 2rem 0 4rem;
+    /* Reduced top padding */
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: var(--white);
     margin-bottom: 2rem;
     border-radius: 0 0 20px 20px;
+}
+
+.hero-banner {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .hero h1 {

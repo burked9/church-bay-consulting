@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ DEFAULT_LANG }}">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,12 +8,18 @@
     <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="{{ SITEURL }}/" class="site-title">{{ SITENAME }}</a>
+            <a href="{{ SITEURL }}/" class="site-logo-link">
+                <img src="{{ SITEURL }}/theme/images/logo.png" alt="{{ SITENAME }} Logo" class="site-logo">
+                <span class="site-title">{{ SITENAME }}</span>
+            </a>
             <nav>
                 <ul>
                     {% for title, link in MENUITEMS %}
@@ -35,4 +42,5 @@
         </div>
     </footer>
 </body>
+
 </html>
