@@ -12,3 +12,5 @@ I am always open to discussing new opportunities and collaborations.
 **Address**:
 Clonrush, Whitegate,
 Co. Clare, Ireland
+
+**LinkedIn**: [Daniel Burke](https://www.linkedin.com/in/daniel-burke-1a637426/)
