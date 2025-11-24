@@ -108,22 +108,39 @@ nav a:hover {
 /* Hero Section (Home) */
 .hero {
     text-align: center;
-    padding: 2rem 0 4rem;
-    /* Reduced top padding */
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 0;
+    /* Remove padding to let image fill */
+    background-color: var(--primary-color);
+    /* Fallback */
     color: var(--white);
     margin-bottom: 2rem;
     border-radius: 0 0 20px 20px;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-banner {
-    max-width: 100%;
-    height: auto;
-    max-height: 300px;
-    margin-bottom: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.full-width-banner {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/banner_full.webp');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    /* Semi-transparent background for text readability */
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+/* Removed .hero-banner as it is no longer used */
 
 .hero h1 {
     color: var(--white);
