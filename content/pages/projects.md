@@ -3,8 +3,11 @@ Date: 2023-10-26
 
 # Projects & Insights
 
-*Coming Soon*
+A collection of AI insights, regulatory updates, and open-source projects.
 
-This section will feature case studies, open-source contributions, and blog posts sharing insights into AI in aviation.
+## Deep Learning Projects
+*   [Deep Neural Networks for Fair Market Value pricing]({filename}/pages/deep_neural_networks.md)
+    *   *An exploration of using deep learning to estimate fair market value in aviation.*
 
-Check back later for updates!
+## Upcoming
+*   *More open source projects in AI and aviationcoming soon...*

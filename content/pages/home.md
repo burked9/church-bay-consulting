@@ -4,8 +4,8 @@ Save_as: index.html
 URL: index.html
 Template: home
 
-# Welcome to Church Bay Consulting
+# Strategic AI Consultancy | Aviation Industry Specialists
 
-**Church Bay Consulting** is a premier AI consultancy firm based in the serene Whitegate, County Clare. We specialize in bringing cutting-edge Artificial Intelligence solutions to the aviation industry.
+**Church Bay Consulting** provides premier AI strategy and implementation from our base in Whitegate, Co. Clare. We specialize in deploying innovative artificial intelligence solutions that solve the unique challenges of the aviation world.
 
-Inspired by the calm and steady nature of the waters at Church Bay, we provide reliable, innovative, and strategic guidance to help your business navigate the complex currents of modern technology.
+Guided by a commitment to reliability and steady innovation, we help our clients navigate technological shifts with precision and strategic excellence.
