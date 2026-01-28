@@ -2,7 +2,7 @@ Title: Deep Neural Networks for Fair Market Value pricing
 Slug: deep-neural-networks
 Date: 2025-12-27
 Category: Projects
-Tags: Deep Learning, AI, Aviation
+Tags: Deep Learning, Pricing, AI, Aviation
 
 # Deep Neural Networks for Fair Market Value Pricing
 
@@ -10,7 +10,16 @@ Tags: Deep Learning, AI, Aviation
 
 ## Introduction
 
-In the aviation industry, determining the Fair Market Value (FMV) of assets is a complex task involving numerous variables. Usually, the Fair Market Value of an aircraft is determined by a combination of factors, including the aircraft's age, maintenance history, market cycle position, and configuration, and calculated specifically for comparison by summing the values of the aircraft's components, each known as an "Aircraft Rotable". Traditional methods effectively utilize linear regression and historical data, but they often struggle with non-linear relationships and high-dimensional data. This project explores the application of **Deep Neural Networks (DNNs)** to enhance the accuracy of FMV estimations.
+In the aviation industry, determining the Fair Market Value (FMV) of assets is a complex task involving numerous variables. Usually, the Fair Market Value of an aircraft is determined by a combination of factors, including the aircraft's age, maintenance history, market cycle position, and configuration, and calculated specifically for comparison by summing the values of the aircraft's components, each known as an "Aircraft Rotable". 
+
+Traditional pricing methods use historical sales and quote data in a linear way, typically using a Linear Regression Model in order to predict the Fair Market Value of a component, a fair price which may be assigned by an analyst in order to predict what a sales person might be able to sell the component for, or a guide price for the sales team depending on how it is calculated. These linear models will struggle with non-linear relationships and high-dimensional data. 
+
+This project explores and outlines the application of **Deep Neural Networks (DNNs)** to enhance the accuracy of FMV estimations, and provides a template for building a pricing model using a neural network. A Deep Neural Network is a type of machine learning model that is based on the structure and function of the human brain. It is a type of artificial neural network that is designed to learn from data by simulating the way the human brain processes information. Deep Neural Networks are able to learn from data by using a process called backpropagation, which allows the model to adjust its weights in order to minimize the difference between its predictions and the actual values.
+
+A Deep Neural Network can capture non-linear relationships in order to capture complex high dimensional variables such as market demand, historical elasticity, and inventory scarcity, which a linear model cannot do.
+
+
+
 
 ## Methodology
 
@@ -98,7 +107,7 @@ def build_fmv_model(input_shape):
 
 ## Future Work
 
-This model is an open-source tool which is open source, free to use and the details can be found on GitHub. Any templates used here are based around mock generated data and are not real aircraft data.
+This model is an open-source tool which is open source, free to use and the details can be found on GitHub. Any templates used here are my own creation and based around mock generated data randomly generated from list pricing data and are not real aircraft values.
 
 
 ---
