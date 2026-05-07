@@ -42,20 +42,18 @@
 <blockquote>
 <p>Drop the PDF. Get the table. Walk away.</p>
 </blockquote>
-<p>For two decades, the same scene has played out in airline back offices and lease return rooms across the world, from Shannon to Timbuktu: an analyst opens a 50-page maintenance PDF, triple-screens a spreadsheet, opens a third spreadsheet, and starts typing. Every part number, every serial, every cycle count — by hand. One typo away from a costly mistake. One missed row away from an audit finding.</p>
+<p>For three decades, the same scene has played out in airline back offices and lease return rooms across the world, from Shannon to Timbuktu: an analyst opens a 50-page maintenance PDF, triple-screens a spreadsheet, opens a third spreadsheet, and starts typing. Every part number, every serial, every cycle count — by hand. One typo away from a costly mistake. One missed row away from an audit finding.</p>
 <p>There has to be a better way.</p>
 <p>There is. <strong>It just runs in your browser.</strong></p>
-<p><img alt="Cypher Landing Page" src="https://churchbayconsulting.com/images/cypher_splash.png"></p>
+<p><img alt="Cypher landing page — clean hero, three-step indicator, Choose-PDF button, three info cards" src="https://churchbayconsulting.com/images/cypher_landing.png"></p>
 <blockquote>
 <p>From PDF to validated CSV in three clicks.</p>
 </blockquote>
 <h2>What it does, in one breath</h2>
 <p>Cypher reads aviation maintenance documents — <strong>OCCMs, Hard-Time lists, Life-Limited-Part records, Avionic Inventories, Aircraft Equipment List Reports</strong> — and produces clean, structured, validated data ready for Excel, your MIS, or your records system. It runs <strong>entirely in your browser</strong>. Your PDFs never leave your laptop. Nothing is uploaded anywhere. Ever.</p>
 <p>That is not marketing language. It is an architectural fact, verifiable in 30 seconds with the browser's network panel.</p>
-<p><img alt="Deploy Page After Extraction" src="https://churchbayconsulting.com/images/cypher_llp_table.png"></p>
-<blockquote>
-<p>Variant-aware extraction with soft validation. Every cell that fails an aviation-domain rule is flagged for analyst review — never silently dropped.</p>
-</blockquote>
+<p><img alt="Sample LLP extraction — 25 rows, 25 clean, filter bar, sticky headers, ENGINE_SN propagated to every row" src="https://churchbayconsulting.com/images/cypher_llp_extraction.png"></p>
+<p><em>A real Life-Limited-Parts list, parsed in under a second. 25 rows, 25 clean, zero flagged. Engine serial number propagated to every row from the document header so the data is one <code>GROUP BY</code> away from a fleet-wide LLP burn-down chart. Try doing that with a screenshot of a PDF and a hand-typed spreadsheet.</em></p>
 <h2>Why it's different</h2>
 <h3>Variant-aware, by construction</h3>
 <p>Operators don't agree on document formats. China Eastern's OCCM doesn't look like Vietnam Airlines'. Aeroflot ships a scanned PDF with no text layer. AMOS-driven equipment lists from Swiss-AS are line-anchored. Off the shelf standard "PDF table extractors" treat all documents as one shape — and break the moment they don't.</p>
@@ -63,10 +61,8 @@
 <h3>Soft validation, aviation-domain-aware</h3>
 <p>Cypher knows what part numbers contain what string of letters, and which ones don't.</p>
 <p>Every cell is checked. Every suspicious cell is <strong>flagged</strong> for review. <strong>Nothing is dropped.</strong> The analyst sees what the machine wasn't sure about and decides.</p>
-<p><img alt="HTML Report" src="https://churchbayconsulting.com/images/cypher_html_report.png"></p>
-<blockquote>
-<p>Cross-corpus issue analysis surfaces patterns: which variants flag where, which OCR substitutions saved the most rows, where the rules need tuning.</p>
-</blockquote>
+<p><img alt="Issue frequency analysis — horizontal bar chart of (column, reason) flags across the corpus" src="https://churchbayconsulting.com/images/cypher_issue_analysis.png"></p>
+<p><em>Cross-corpus issue analysis surfaces patterns at a glance. The two long bars at the top are not bugs — they are exactly the cells an analyst should eyeball first, surfaced from a corpus of 3,300 rows in milliseconds. Tuning a rule moves the bars; the chart is the feedback loop.</em></p>
 <h3>Four-level extraction pipeline</h3>
 <p>Different documents need different muscles. Cypher escalates per page:</p>
 <ul>
@@ -88,7 +84,7 @@
 <li><strong>Part Number technical documents cross-check</strong> — validate every extracted part number against an authoritative technical document library for each aircraft type, in-browser, without ever shipping the master list itself. Mathematically one-way, zero-trust by construction.</li>
 <li><strong>Aircraft-type sub-variants</strong> — operator + airframe specificity for the rare cases where one operator emits different formats per fleet.</li>
 </ul>
-<h2>Try it</h2>
+<h2>Try it today</h2>
 <p>Cypher launches publicly at [your URL here]. If you'd like a private walkthrough, drop me a line.</p>
 <p>— <strong>Daniel Burke</strong>, Church Bay Consulting</p>
 <hr>
