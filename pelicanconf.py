@@ -3,7 +3,6 @@ SITENAME = 'Church Bay Consulting'
 SITEURL = ''
 
 PATH = 'content'
-
 TIMEZONE = 'Europe/Dublin'
 
 DEFAULT_LANG = 'en'
