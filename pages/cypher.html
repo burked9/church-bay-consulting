@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="i4fbofHAWd-gZzRUjtFy7JbixZ6M3BZoQ3pKpviT_Bw" />
+    <title>Cypher — aviation maintenance data, finally on tap - Church Bay Consulting</title>
+    <link rel="stylesheet" href="https://churchbayconsulting.com/theme/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Open+Sans:wght@300;400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="https://churchbayconsulting.com/" class="site-logo-link">
+                <img src="https://churchbayconsulting.com/theme/images/logo.png" alt="Church Bay Consulting Logo" class="site-logo">
+                <span class="site-title">Church Bay Consulting</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="https://churchbayconsulting.com/">Home</a></li>
+                    <li><a href="https://churchbayconsulting.com/pages/about-us.html">About</a></li>
+                    <li><a href="https://churchbayconsulting.com/pages/projects.html">Projects</a></li>
+                    <li><a href="https://churchbayconsulting.com/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+<article class="page">
+    <header>
+        <h1>Cypher — aviation maintenance data, finally on tap</h1>
+    </header>
+    <div class="entry-content">
+        <h1>Cypher</h1>
+<blockquote>
+<p>Drop the PDF. Get the table. Walk away.</p>
+</blockquote>
+<p>For two decades, the same scene has played out in airline back offices and lease return rooms across the world, from Shannon to Timbuktu: an analyst opens a 50-page maintenance PDF, triple-screens a spreadsheet, opens a third spreadsheet, and starts typing. Every part number, every serial, every cycle count — by hand. One typo away from a costly mistake. One missed row away from an audit finding.</p>
+<p>There has to be a better way.</p>
+<p>There is. <strong>It just runs in your browser.</strong></p>
+<p><img alt="Cypher Landing Page" src="https://churchbayconsulting.com/images/cypher_splash.png"></p>
+<blockquote>
+<p>From PDF to validated CSV in three clicks.</p>
+</blockquote>
+<h2>What it does, in one breath</h2>
+<p>Cypher reads aviation maintenance documents — <strong>OCCMs, Hard-Time lists, Life-Limited-Part records, Avionic Inventories, Aircraft Equipment List Reports</strong> — and produces clean, structured, validated data ready for Excel, your MIS, or your records system. It runs <strong>entirely in your browser</strong>. Your PDFs never leave your laptop. Nothing is uploaded anywhere. Ever.</p>
+<p>That is not marketing language. It is an architectural fact, verifiable in 30 seconds with the browser's network panel.</p>
+<p><img alt="Deploy Page After Extraction" src="https://churchbayconsulting.com/images/cypher_llp_table.png"></p>
+<blockquote>
+<p>Variant-aware extraction with soft validation. Every cell that fails an aviation-domain rule is flagged for analyst review — never silently dropped.</p>
+</blockquote>
+<h2>Why it's different</h2>
+<h3>Variant-aware, by construction</h3>
+<p>Operators don't agree on document formats. China Eastern's OCCM doesn't look like Vietnam Airlines'. Aeroflot ships a scanned PDF with no text layer. AMOS-driven equipment lists from Swiss-AS are line-anchored. Off the shelf standard "PDF table extractors" treat all documents as one shape — and break the moment they don't.</p>
+<p>Cypher does not. Every operator gets its own <strong>sealed variant module</strong> — a single Python file that pins the column schema, the validation rules, and the parser logic. When a new VNA document arrives, it is fingerprinted from the first three pages and routed to exactly the same parser that handled the last 50 VNA documents. Same input shape → same output shape. Every. Single. Time.</p>
+<h3>Soft validation, aviation-domain-aware</h3>
+<p>Cypher knows what part numbers contain what string of letters, and which ones don't.</p>
+<p>Every cell is checked. Every suspicious cell is <strong>flagged</strong> for review. <strong>Nothing is dropped.</strong> The analyst sees what the machine wasn't sure about and decides.</p>
+<p><img alt="HTML Report" src="https://churchbayconsulting.com/images/cypher_html_report.png"></p>
+<blockquote>
+<p>Cross-corpus issue analysis surfaces patterns: which variants flag where, which OCR substitutions saved the most rows, where the rules need tuning.</p>
+</blockquote>
+<h3>Four-level extraction pipeline</h3>
+<p>Different documents need different muscles. Cypher escalates per page:</p>
+<ul>
+<li><strong>L1</strong> — text-layer parsing for selectable PDFs (most operators, sub-second per page)</li>
+<li><strong>L2</strong> — layout-aware reconstruction for awkwardly-typeset tables <em>(reserved)</em></li>
+<li><strong>L3</strong> — Tesseract OCR for scanned PDFs</li>
+<li><strong>L4</strong> — PaddleOCR <code>PP-Structure</code> for fringe-quality scans (Colab notebook) for advanced users.</li>
+</ul>
+<p>A single document can be a mix. A 24-page OCCM with 13 text-layer pages and 11 scanned pages is parsed in one pass — text rows extracted directly, scanned pages routed to OCR, every row tagged with its provenance.</p>
+<h3>Privacy by design, not by promise</h3>
+<p>Cypher is a <strong>Pyodide application</strong> — Python compiled to WebAssembly, executing in the same JavaScript sandbox as a Wikipedia page. The PDF you select is read into the browser's memory and parsed there. No HTTP requests carry document bytes. No third-party telemetry. No cookies. Disconnect from the internet after the page loads and Cypher still works for the rest of the session.</p>
+<p>For privacy-conscious operators, lease return work, ITAR-adjacent records, or anyone who has ever felt uncomfortable uploading a maintenance file to a "free SaaS extraction tool" — this is what you've been waiting for.</p>
+<h3>Open source, MIT-licensed</h3>
+<p>The full source is on GitHub. The validation rules are readable. The parsers are auditable. The privacy claims are verifiable line by line. <strong>Trust by inspection, not by trust me bro.</strong></p>
+<h2>Real numbers, real PDFs</h2>
+<p>Adding a new operator would be a one-file affair. Tuning a rule is a one-line affair. Re-running the whole corpus and rebuilding the dashboard takes ninety seconds.</p>
+<h2>What's coming next</h2>
+<ul>
+<li><strong>Part Number technical documents cross-check</strong> — validate every extracted part number against an authoritative technical document library for each aircraft type, in-browser, without ever shipping the master list itself. Mathematically one-way, zero-trust by construction.</li>
+<li><strong>Aircraft-type sub-variants</strong> — operator + airframe specificity for the rare cases where one operator emits different formats per fleet.</li>
+</ul>
+<h2>Try it</h2>
+<p>Cypher launches publicly at [your URL here]. If you'd like a private walkthrough, drop me a line.</p>
+<p>— <strong>Daniel Burke</strong>, Church Bay Consulting</p>
+<hr>
+<p><em>Cypher is an open-source project under the MIT license. The deployed site is hosted on GitHub Pages with no analytics, no cookies, and no server. Source: [link to GitHub repo]. Built with Pyodide, pdfplumber, pdfminer.six, and the goodwill of every aviation engineer who has ever lost a Saturday to manual data entry.</em></p>
+    </div>
+</article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Church Bay Consulting. All rights reserved.</p>
+            <p class="contact-info">burked9@gmail.com | +353 871933409</p>
+        </div>
+    </footer>
+</body>
+
+</html>
