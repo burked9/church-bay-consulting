@@ -166,6 +166,20 @@ main {
     padding-bottom: 1rem;
 }
 
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.page img, article img {
+    max-width: 70%; /* 30% shrinkage relative to text container */
+    display: block;
+    margin: 2rem auto; /* Center the image */
+    border-radius: 8px; /* Optional slight rounding for a softer look */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional subtle shadow */
+}
+
 /* Footer */
 .site-footer {
     background-color: var(--primary-color);
