@@ -2,7 +2,7 @@
     --primary-color: #000000; /* True Black */
     --secondary-color: #1AD4FF; /* Sky Aqua */
     --accent-color: #1AD4FF; /* Sky Aqua */
-    --background-color: #E3F9FF; /* Azure Mist */
+    --background-color: #ffffff; /* Plain White */
     --text-color: #000000; /* True Black */
     --white: #ffffff;
     --font-heading: 'Geist', sans-serif;
@@ -177,11 +177,12 @@ img {
 
 /* Footer */
 .site-footer {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--text-color);
     text-align: center;
     padding: 2rem 0;
     margin-top: auto;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .contact-info {
