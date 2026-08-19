@@ -1,17 +1,12 @@
 :root {
-    --primary-color: #9b2226;
-    /* Ruby Red */
-    --secondary-color: #ca6702;
-    /* Burnt Orange */
-    --accent-color: #e9d8a6;
-    /* Vanilla/Cream */
-    --background-color: #fdfcf0;
-    /* Ivory/Warm White */
-    --text-color: #3d2b1f;
-    /* Dark Coffee */
+    --primary-color: #000000; /* True Black */
+    --secondary-color: #1AD4FF; /* Sky Aqua */
+    --accent-color: #1AD4FF; /* Sky Aqua */
+    --background-color: #E3F9FF; /* Azure Mist */
+    --text-color: #000000; /* True Black */
     --white: #ffffff;
-    --font-heading: 'Montserrat', sans-serif;
-    --font-body: 'Open Sans', sans-serif;
+    --font-heading: 'Geist', sans-serif;
+    --font-body: 'Geist', sans-serif;
 }
 
 body {
