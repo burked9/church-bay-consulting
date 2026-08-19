@@ -11,7 +11,9 @@
 
 body {
     font-family: var(--font-body);
-    background-color: var(--background-color);
+    /* Fixed Full-Cover Background Image with a white semi-transparent overlay for text readability */
+    background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('../images/global-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: var(--text-color);
     margin: 0;
     padding: 0;
@@ -115,7 +117,7 @@ nav a:hover {
 }
 
 .full-width-banner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/banner_full.webp');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/global-bg.jpg');
     background-size: cover;
     background-position: center;
     height: 60vh;
