@@ -5,11 +5,6 @@ Category: Projects
 Tags: Aviation, Monte Carlo, Machine Learning, Fitment Prediction, Sextant, AI
 Summary: A Monte Carlo prediction engine for aviation part-number fitment across airframe positions with confidence scoring.
 Status: published
-
-# SEXTANT — the fitted-parts prediction engine
-
-## SEXTANT
-
 **Enter the MSN. I'll give you the parts list. With confidence.**
 
 A parts trader gets a call at 4pm on a Tuesday. A wide-body is being scrapped in six weeks — a decade-old A330 with a Portuguese operator he's never dealt with. He has the MSN, the registration, and the build year. He has thirty minutes to decide whether to bid.

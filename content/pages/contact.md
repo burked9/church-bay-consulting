@@ -5,9 +5,9 @@ Date: 2023-10-26
 
 Please contact to discuss new opportunities and potential collaborations.
 
-**Email**: [churchbayconsulting@gmail.com](mailto:churchbayconsulting@gmail.com): Principal Consultant
+**Email**: [churchbayconsulting@gmail.com](mailto:churchbayconsulting@gmail.com)
 
-**Mobile Phone**: +353 871933409 Principal Consultant
+**Mobile Phone**: +353 871933409
 
 **Address**:
 Clonrush, Whitegate,
