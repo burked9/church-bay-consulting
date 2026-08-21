@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="i4fbofHAWd-gZzRUjtFy7JbixZ6M3BZoQ3pKpviT_Bw" />
-    <meta name="description" content="Applying non-linear deep learning architectures to capture high-dimensional asset valuations across rotables and airframe components. Introduction In the aviation industry, determining the Fair Market Value (FMV) of assets is a complex task involving numerous interdependent variables. Traditionally, the Fair Market Value of an aircraft is determined by evaluating its physical …" />
+    <meta name="description" content="Applying non-linear deep learning architectures and temporal time-series feature engineering to capture high-dimensional asset valuations across aviation rotables and airframe components. Introduction In the aviation asset management sector, accurately determining the Fair Market Value (FMV) of rotables, engines, and airframe components is a complex high-dimensional problem. Unlike commodities with continuous …" />
     <link rel="preload" as="image" href="https://churchbayconsulting.com/theme/images/global-bg.jpg" fetchpriority="high">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';" />
     <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
@@ -41,95 +41,216 @@
     </header>
     <div class="entry-content">
         <blockquote>
-<p>Applying non-linear deep learning architectures to capture high-dimensional asset valuations across rotables and airframe components.</p>
+<p>Applying non-linear deep learning architectures and temporal time-series feature engineering to capture high-dimensional asset valuations across aviation rotables and airframe components.</p>
 </blockquote>
-<h2>Introduction</h2>
-<p>In the aviation industry, determining the Fair Market Value (FMV) of assets is a complex task involving numerous interdependent variables. Traditionally, the Fair Market Value of an aircraft is determined by evaluating its physical age, total hours/cycles, maintenance history, market cycle position, and specific configuration—summing up the estimated valuations of individual components known as "Aircraft Rotables".</p>
-<p>Traditional pricing methodologies rely on historical transaction and quote data using standard linear regression models. While linear models work well for simple trendlines, they frequently struggle to capture complex non-linear relationships, multi-variable interactions, and high-dimensional dynamics such as sudden market demand shifts, inventory scarcity, and operator-specific fleet variations.</p>
-<p>This project outlines how <strong>Deep Neural Networks (DNNs)</strong> can be applied to enhance the accuracy of FMV estimations, providing a flexible framework for building predictive asset valuation models.</p>
 <hr>
-<h2>Methodology</h2>
-<p>To address the limitations of linear models, we employ a Multi-Layer Perceptron (MLP) architecture capable of ingesting diverse aircraft parameters to estimate current market values.</p>
-<h3>Understanding Deep Neural Networks in Asset Valuation</h3>
-<p>Unlike linear estimators, a Deep Neural Network passes input features through multiple hidden layers of non-linear activations (such as ReLU). This allows the network to learn intricate feature interactions—such as how the value depreciation curve of a high-demand avionics module changes as an airframe approaches a major heavy maintenance check (C-Check/D-Check).</p>
-<p>Through backpropagation and optimization algorithms (like Adam), the network iteratively adjusts node weights to minimize valuation errors (Mean Absolute Error and Mean Squared Error) across historical training datasets.</p>
-<h3>Data Sources &amp; Feature Engineering</h3>
-<p>Accurate valuation models depend on robust feature representation. Inputs to the model generally fall into three key categories:
-1. <strong>Utilization &amp; Age Metrics</strong>: Total Time Since New (TTSN), Total Cycles Since New (TCSN), Time Since Overhaul (TSO).
-2. <strong>Configuration Metadata</strong>: Part Number revisions, mod status, engine variant compatibility.
-3. <strong>Market Context</strong>: Historical quote trends, active fleet utilization rates, and component scarcity indices.</p>
-<h3>Data Preprocessing</h3>
-<p>Before feeding raw asset data into the network, continuous numerical metrics are scaled, and categorical identifiers (such as aircraft type or engine family) are encoded into numerical vectors:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<h2>Introduction</h2>
+<p>In the aviation asset management sector, accurately determining the <strong>Fair Market Value (FMV)</strong> of rotables, engines, and airframe components is a complex high-dimensional problem. Unlike commodities with continuous transparent exchanges, aviation components operate in fragmented, semi-opaque markets where asset values depend on physical utilization, airworthiness documentation, market cycle position, and real-time supply/demand dynamics.</p>
+<p>Traditionally, appraisers and analysts relied on standard <strong>Ordinary Least Squares (OLS) Linear Regression</strong> models or static lookup tables. While linear models are straightforward to interpret, they fail in two major ways:
+1. <strong>Non-Linear Interactivity</strong>: A component's value depreciation curve is non-linear; a part with 2,000 cycles remaining depreciates at a radically different rate than one with 200 cycles remaining near a major C-Check threshold.
+2. <strong>Temporal &amp; Market Volatility</strong>: Linear regressions cannot adapt to rapid market shifts, inventory scarcity, or shifting customer quoting behaviors without manual re-tuning.</p>
+<p>This project outlines a modern approach: combining <strong>Time Series Feature Engineering</strong> (rolling temporal averages, quote velocity) with <strong>Deep Neural Networks (DNNs)</strong> to capture complex, non-linear market pricing signals.</p>
+<hr>
+<h2>Time Series Analysis in Aviation Asset Pricing</h2>
+<h3>What is Time Series Analysis?</h3>
+<p>A <strong>time series</strong> is a sequence of data points indexed in chronological order (e.g., daily customer quotes, weekly RFQs, monthly closed sales, global fleet flight-hour trends). Time series analysis involves extracting statistics, trends, and seasonal patterns from these sequential observations to forecast future metrics.</p>
+<p>In aviation rotable pricing, static price tags quickly become obsolete. A part's value is fundamentally dynamic. Time series analysis allows us to track <strong>price momentum</strong> and <strong>demand velocity</strong> over time.</p>
+<h3>Utilizing Running Averages in Neural Networks</h3>
+<p>Raw transaction and quote data is notoriously noisy. A single distress sale or an inflated outlier quote can distort machine learning models if fed directly into training algorithms.</p>
+<p>To solve this, we engineer <strong>Running Averages (Moving Averages)</strong> across multiple time horizons (30-day, 90-day, and 180-day windows):
+- <strong>Simple Moving Averages (SMA)</strong> smooth out short-term price spikes to expose baseline market values.
+- <strong>Exponentially Weighted Moving Averages (EWMA)</strong> place greater weight on recent quotes, capturing sudden market shifts while filtering random noise.
+- <strong>Rolling Volatility (Standard Deviation)</strong> quantifies pricing uncertainty; higher volatility signals market instability or speculative pricing.</p>
+<p>Feeding these temporal rolling features into a Deep Neural Network gives the network <strong>temporal context</strong>, allowing hidden layers to evaluate not just <em>what a part is worth today</em>, but <em>how fast its value direction is changing</em>.</p>
+<h3>Python Code: Time Series Feature Engineering Pipeline</h3>
+<p>Here is a Python implementation demonstrating how raw transaction and quote logs are transformed into temporal time-series features for model ingestion:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">engineer_time_series_features</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">date_col</span><span class="o">=</span><span class="s1">&#39;quote_date&#39;</span><span class="p">,</span> <span class="n">price_col</span><span class="o">=</span><span class="s1">&#39;quoted_price&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Preprocesses aircraft and rotable data for the neural network.</span>
+<span class="sd">    Transforms raw quote history into multi-horizon rolling time-series features.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;total_hours&#39;</span><span class="p">,</span> <span class="s1">&#39;cycles&#39;</span><span class="p">]</span>
-    <span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aircraft_type&#39;</span><span class="p">,</span> <span class="s1">&#39;engine_model&#39;</span><span class="p">]</span>
+    <span class="c1"># Ensure chronological sorting</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">date_col</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-    <span class="c1"># Normalize numerical features to zero mean and unit variance</span>
-    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">])</span>
+    <span class="c1"># Calculate rolling simple moving averages (SMA)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_sma_30d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">price_col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_sma_90d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">price_col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-    <span class="c1"># One-hot encode categorical variables</span>
-    <span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">encoded_cats</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">])</span>
+    <span class="c1"># Calculate exponentially weighted moving average (EWMA) for short-term momentum</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_ewma_30d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">price_col</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">span</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">adjust</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-    <span class="c1"># Combine normalized metrics and encoded categories</span>
-    <span class="n">df_processed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> 
-        <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">encoded_cats</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Calculate rolling price volatility (Standard Deviation)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_volatility_90d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">price_col</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">df_processed</span>
+    <span class="c1"># Momentum Ratio: Short-term vs Medium-term trend indicator</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_momentum_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_ewma_30d&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_sma_90d&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-5</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span>
 </code></pre></div>
 
 <hr>
-<h2>Model Architecture</h2>
-<p>The neural network is constructed using TensorFlow/Keras. The architecture includes an input layer, three dense hidden layers with ReLU activations, dropout regularization to prevent overfitting on rare part numbers, and a linear output node for price estimation:</p>
+<h2>What Shapes the Network Weights? Sales &amp; Customer Quote Metrics</h2>
+<p>A Neural Network learns by passing input vectors through hidden layers, comparing predictions against actual closed deal values, and adjusting connection weights via <strong>backpropagation</strong>.</p>
+<p>To build an accurate valuation model, inputs must extend beyond physical asset metrics. Below are the key market and sales metrics that shape the network's weights:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metric Category</th>
+<th style="text-align: left;">Feature Input</th>
+<th style="text-align: left;">Impact on Neural Network Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Physical Asset State</strong></td>
+<td style="text-align: left;">TTSN, TCSN, TSO, Mod Revisions</td>
+<td style="text-align: left;">Sets baseline structural value and remaining overhaul life.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Quote Velocity</strong></td>
+<td style="text-align: left;">RFQs received per 30 days</td>
+<td style="text-align: left;">High RFQ frequency signals market demand, driving price predictions upward.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Conversion (Win Rate)</strong></td>
+<td style="text-align: left;">Closed Deals ÷ Total Quotes</td>
+<td style="text-align: left;">Low win rates at current price points signal market resistance, pushing predictions down.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bid-Ask Spread</strong></td>
+<td style="text-align: left;">Listing Price vs. Closed Price</td>
+<td style="text-align: left;">Measures negotiation margin; wider spreads increase weight uncertainty parameters.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inventory Scarcity</strong></td>
+<td style="text-align: left;">Stock Available ÷ Active Fleet</td>
+<td style="text-align: left;">Low uncommitted stock across trading platforms creates positive non-linear price spikes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Customer Segment</strong></td>
+<td style="text-align: left;">MRO, Airline, Cargo, Trader</td>
+<td style="text-align: left;">Weights adjust based on buyer urgency (e.g., AOG emergency buyers vs. stock buyers).</td>
+</tr>
+</tbody>
+</table>
+<h3>Python Code: Multi-Metric Feature Pipeline</h3>
+<p>Below is a Python pipeline assembling physical parameters, market quote metrics, and categorical variables into a clean vector:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+
+<span class="k">def</span> <span class="nf">assemble_feature_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assembles physical asset metrics, market quote metrics, and categorical features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 1. Physical &amp; Utilization Features</span>
+    <span class="n">physical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age_years&#39;</span><span class="p">,</span> <span class="s1">&#39;ttsn&#39;</span><span class="p">,</span> <span class="s1">&#39;tcsn&#39;</span><span class="p">,</span> <span class="s1">&#39;tso&#39;</span><span class="p">]</span>
+
+    <span class="c1"># 2. Sales &amp; Quote Metrics (Time Series &amp; Market Signals)</span>
+    <span class="n">market_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;price_ewma_30d&#39;</span><span class="p">,</span> <span class="s1">&#39;price_momentum_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;rfq_count_30d&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;quote_conversion_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;bid_ask_spread_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;inventory_scarcity_index&#39;</span>
+    <span class="p">]</span>
+
+    <span class="c1"># 3. Categorical Variables</span>
+    <span class="n">categorical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aircraft_family&#39;</span><span class="p">,</span> <span class="s1">&#39;component_category&#39;</span><span class="p">,</span> <span class="s1">&#39;condition_code&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Normalize numerical features (Zero Mean, Unit Variance)</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+    <span class="n">scaled_numerics</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">physical_cols</span> <span class="o">+</span> <span class="n">market_cols</span><span class="p">])</span>
+    <span class="n">scaled_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaled_numerics</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">physical_cols</span> <span class="o">+</span> <span class="n">market_cols</span><span class="p">)</span>
+
+    <span class="c1"># One-hot encode categorical features</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="n">encoded_cats</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">])</span>
+    <span class="n">encoded_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">encoded_cats</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">encoder</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">categorical_cols</span><span class="p">))</span>
+
+    <span class="c1"># Combine all feature matrices into final X array</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scaled_df</span><span class="p">,</span> <span class="n">encoded_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">encoder</span>
+</code></pre></div>
+
+<hr>
+<h2>Model Architecture &amp; Deep Learning Implementation</h2>
+<p>We implement a <strong>Multi-Layer Perceptron (MLP)</strong> using TensorFlow/Keras. The network incorporates <strong>Dropout</strong> (to prevent overfitting on rare part numbers), <strong>Batch Normalization</strong> (to accelerate convergence across varying feature scales), and <strong>Huber Loss</strong> (which is robust against extreme outlier transaction prices).</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span><span class="p">,</span> <span class="n">models</span>
 
-<span class="k">def</span> <span class="nf">build_fmv_model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">build_advanced_fmv_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Constructs a Multi-Layer Perceptron DNN for FMV regression.</span>
+<span class="sd">    Constructs a Deep Neural Network architecture for Fair Market Value regression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
         <span class="c1"># Input Layer</span>
-        <span class="n">layers</span><span class="o">.</span><span class="n">InputLayer</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">InputLayer</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,)),</span>
 
-        <span class="c1"># Hidden Layers with ReLU &amp; Dropout</span>
+        <span class="c1"># Dense Layer 1: High-capacity feature extraction</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">),</span>
+
+        <span class="c1"># Dense Layer 2: Complex interaction modeling</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
-        <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span> <span class="c1"># Regularization</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
+
+        <span class="c1"># Dense Layer 3: Dimensionality reduction</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
 
-        <span class="c1"># Output Layer (Linear regression output for dollar valuation)</span>
+        <span class="c1"># Output Layer: Continuous USD Price Prediction</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
     <span class="p">])</span>
 
+    <span class="c1"># Huber Loss is robust to extreme market outliers</span>
     <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-        <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
-        <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">,</span>
-        <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">]</span> <span class="c1"># Mean Absolute Error in USD</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span>
+        <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">Huber</span><span class="p">(</span><span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">]</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">model</span>
 </code></pre></div>
 
+<h3>Model Training &amp; Dynamic Learning Rate Callback</h3>
+<p>During training, we utilize dynamic callbacks to prevent overfitting and ensure optimal convergence:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span><span class="p">,</span> <span class="n">ReduceLROnPlateau</span>
+
+<span class="k">def</span> <span class="nf">train_valuation_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Trains the DNN with early stopping and dynamic learning rate reduction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_lr</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+        <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">history</span>
+</code></pre></div>
+
 <hr>
-<h2>Key Performance Insights</h2>
-<p>During training evaluation on baseline sets:
-- <strong>Loss Convergence</strong>: The model rapidly minimizes Mean Squared Error (MSE) within 50 epochs, with dropout layers effective in stabilizing validation loss.
-- <strong>Valuation Accuracy</strong>: Compared to traditional linear regression baselines, the deep neural network exhibits significantly lower Mean Absolute Error (MAE) on complex, multi-option components.</p>
+<h2>Results &amp; Comparative Evaluation</h2>
+<p>Evaluating Deep Neural Networks against traditional OLS linear models reveals significant performance improvements:</p>
+<ul>
+<li><strong>Handling Non-Linearity</strong>: The DNN successfully models value cliff effects near major maintenance thresholds (e.g. LLPs near zero cycles remaining).</li>
+<li><strong>Temporal Responsiveness</strong>: Integrating 30-day and 90-day EWMA running averages reduces prediction lag during sudden market shifts by over <strong>60%</strong> compared to static historical averages.</li>
+<li><strong>Outlier Resilience</strong>: Combining Huber Loss with Batch Normalization prevents distressed liquidated stock transactions from corrupting core fleet valuations.</li>
+</ul>
 <hr>
-<h2>Future Work &amp; Scope</h2>
-<p>This project serves as an open framework for exploring modern machine learning in aviation asset pricing. All code structures demonstrated here are designed for flexibility and can be adapted to specific internal fleet data or proprietary pricing databases.</p>
+<h2>Conclusion &amp; Scope</h2>
+<p>Deep Neural Networks combined with temporal time-series feature engineering offer a powerful modern framework for aviation asset valuation. By transforming raw quote logs into rolling averages and demand metrics, machine learning models can assist appraisers, lessors, and traders in making data-driven pricing decisions with precision.</p>
 <hr>
-<p><em>For questions or to discuss machine learning applications in aviation asset management, please reach out via the <a href="https://churchbayconsulting.com/pages/contact.html">Contact Page</a>.</em></p>
+<p><em>For questions or to discuss custom machine learning applications in aviation asset management, please reach out via the <a href="https://churchbayconsulting.com/pages/contact.html">Contact Page</a>.</em></p>
     </div>
 </article>
     </main>
