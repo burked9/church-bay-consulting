@@ -1,5 +1,6 @@
 AUTHOR = 'Daniel Burke'
 SITENAME = 'Church Bay Consulting'
+SITEDESCRIPTION = 'Church Bay Consulting is an AI consultancy specialized in artificial intelligence, machine learning, and data science for the aviation industry, based in Whitegate, Co. Clare, Ireland.'
 SITEURL = ''
 
 PATH = 'content'
