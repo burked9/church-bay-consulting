@@ -1,16 +1,14 @@
 Title: About Us
 Date: 2023-10-26
 
-# About Us
+Church Bay Consulting is an AI consultancy based in Whitegate, County Clare, focused entirely on the aviation industry. We help aviation companies apply modern AI and machine learning to real operational problems — improving safety, cutting inefficiency, and building tools that hold up under the demands of aerospace.
 
-Church Bay Consulting is a premier AI consultancy firm based in the serene Whitegate, County Clare, specializing in bringing cutting-edge Artificial Intelligence solutions to the aviation industry.
-
-Inspired by the calm and steady nature of the waters at Church Bay, tools are provided here in addition to consulting services to help aviation companies leverage the power of AI to improve safety, efficiency, and innovation.
+Alongside consulting, we build and provide our own tools, so aviation teams aren't just getting advice, but something they can actually put to work.
 
 ## Daniel Burke | Founder & Principal Consultant
 
-Daniel Burke is an industry-leading specialist in the application of *Artificial Intelligence* within the aviation sector. With a career spanning nearly a decade, Daniel has dedicated nine years to pioneering Machine Learning and Data Science solutions that address the unique complexities of aerospace.
+Daniel Burke has spent nine of the last ten years building Machine Learning and Data Science solutions for the aviation sector — work that sits at the intersection of hard physical constraints and messy real-world data.
 
-Daniel holds a BSc in Mathematics and Physics and an MSc in Artificial Intelligence, a dual academic foundation that enables him to bridge the gap between theoretical data models and real-world physical systems.
+He holds a BSc in Mathematics and Physics and an MSc in Artificial Intelligence, both from the University of Limerick, giving him a foundation that runs from theoretical modelling through to the physical systems those models are meant to serve.
 
-A lifelong mariner based in Clonrush, Whitegate, Daniel draws a parallel between the precision required in flight and the navigational steady-handedness of the Shannon. Through Church Bay Consulting, he is committed to empowering aviation organizations to enhance safety, optimize operational efficiency, and lead through technological innovation.
+Daniel is based in Clonrush, Whitegate, and sails regularly on Church Bay. He sees a real parallel between the discipline flight demands and the steadiness required on the water — and it's that same discipline he brings to Church Bay Consulting, helping aviation organisations get real safety, efficiency, and innovation gains out of AI, not just the promise of them.
