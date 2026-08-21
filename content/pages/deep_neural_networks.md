@@ -37,6 +37,8 @@ To solve this, we engineer **Running Averages (Moving Averages)** across multipl
 
 Feeding these temporal rolling features into a Deep Neural Network gives the network **temporal context**, allowing hidden layers to evaluate not just *what a part is worth today*, but *how fast its value direction is changing*.
 
+![Time Series Feature Engineering: Spot Quotes vs. Smoothing Windows]({static}/images/time_series_smoothing.png)
+
 ### Python Code: Time Series Feature Engineering Pipeline
 
 Here is a Python implementation demonstrating how raw transaction and quote logs are transformed into temporal time-series features for model ingestion:
@@ -198,6 +200,8 @@ def train_valuation_model(model, X_train, y_train, X_val, y_val):
     return history
 ```
 
+![Deep Neural Network Training Dynamics & Loss Convergence]({static}/images/dnn_loss_convergence.png)
+
 ---
 
 ## Results & Comparative Evaluation
@@ -207,6 +211,8 @@ Evaluating Deep Neural Networks against traditional OLS linear models reveals si
 - **Handling Non-Linearity**: The DNN successfully models value cliff effects near major maintenance thresholds (e.g. LLPs near zero cycles remaining).
 - **Temporal Responsiveness**: Integrating 30-day and 90-day EWMA running averages reduces prediction lag during sudden market shifts by over **60%** compared to static historical averages.
 - **Outlier Resilience**: Combining Huber Loss with Batch Normalization prevents distressed liquidated stock transactions from corrupting core fleet valuations.
+
+![Neural Network Valuation Accuracy: Actual vs. Predicted FMV]({static}/images/actual_vs_predicted_fmv.png)
 
 ---
 
