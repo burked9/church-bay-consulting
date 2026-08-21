@@ -8,6 +8,8 @@ A collection of AI insights, regulatory updates, and open-source projects, free 
 ## Featured Projects
 *   [Cypher — aviation maintenance data, finally on tap]({filename}/pages/cypher.md)
     *   *An in-browser, zero-trust, variant-aware extractor for OCCMs, Hard-Time lists and LLPs.*
+*   [SEXTANT — the fitted-parts prediction engine]({filename}/pages/sextant.md)
+    *   *A Monte Carlo prediction engine for aviation part-number fitment across airframe positions with confidence scoring.*
 
 ## Deep Learning Projects
 *   [Deep Neural Networks for Fair Market Value pricing]({filename}/pages/deep_neural_networks.md)
