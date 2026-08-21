@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="i4fbofHAWd-gZzRUjtFy7JbixZ6M3BZoQ3pKpviT_Bw" />
+    <meta name="description" content="A Monte Carlo prediction engine for aviation part-number fitment across airframe positions with confidence scoring." />
+    <link rel="preload" as="image" href="https://churchbayconsulting.com/theme/images/global-bg.jpg" fetchpriority="high">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';" />
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+    <title>SEXTANT — the fitted-parts prediction engine - Church Bay Consulting</title>
+    <link rel="stylesheet" href="https://churchbayconsulting.com/theme/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="https://churchbayconsulting.com/" class="site-logo-link">
+                <img src="https://churchbayconsulting.com/theme/images/logo.png" alt="Church Bay Consulting Logo" class="site-logo" width="89" height="50">
+                <span class="site-title">Church Bay Consulting</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="https://churchbayconsulting.com/">Home</a></li>
+                    <li><a href="https://churchbayconsulting.com/pages/about-us.html">About</a></li>
+                    <li><a href="https://churchbayconsulting.com/pages/projects.html">Projects</a></li>
+                    <li><a href="https://churchbayconsulting.com/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+<article class="page">
+    <header>
+        <h1>SEXTANT — the fitted-parts prediction engine</h1>
+    </header>
+    <div class="entry-content">
+        <h1>SEXTANT — the fitted-parts prediction engine</h1>
+<h2>SEXTANT</h2>
+<p><strong>Enter the MSN. I'll give you the parts list. With confidence.</strong></p>
+<p>A parts trader gets a call at 4pm on a Tuesday. A wide-body is being scrapped in six weeks — a decade-old A330 with a Portuguese operator he's never dealt with. He has the MSN, the registration, and the build year. He has thirty minutes to decide whether to bid.</p>
+<p>Everything else is a guess.</p>
+<p>Is the ADIRU at position 1FP2 the earlier Honeywell part or the post-mod Thales? Is the ADM at 19FP1 the -BC02 revision or the -AC05? Are the brakes still the pre-2010 assembly or have they been swapped to the newer disc? Each of those decisions is five figures. There are 1,200 positions on the airframe. And he has thirty minutes.</p>
+<p>Someone bolder wins the deal. Every time. Not because they're smarter but because they're guessing anyway, and they've priced in a bigger uncertainty margin.</p>
+<p><strong>There has to be a better way.</strong></p>
+<p>There is.</p>
+<p><em>[SCREENSHOT: SEXTANT prediction output for a single MSN - positions × predicted PN × confidence band, chapter-grouped]</em></p>
+<h2>What it does, in one breath</h2>
+<p>SEXTANT is a Monte Carlo prediction engine for aviation part-number fitment. Give it an aircraft — any airframe, any age, in the fleet or already scrapped — and it returns the most likely part number at every confirmed canonical position, with a confidence score and the alternatives ranked behind it. Behind every prediction is real OCCM ground truth from sibling airframes: same aircraft family, same sub-variant, same era, same engine option. The output is a chapter-by-chapter parts list you can walk into a valuation with.</p>
+<p>The predictions ship. The methodology does not.</p>
+<h2>Why it's different</h2>
+<h3>Sub-variant awareness, by construction, not extrapolation</h3>
+<p>Vendors and appraisers routinely blur A330 into a single category. SEXTANT doesn't. A332 (A330-200) is a different sub-variant from A333 (A330-300) which is different again from A338 and A339 — and each has an identifiable fitment fingerprint that emerges from the data. A346 (A340-600) is a different animal from A343 (A340-300) — pairwise position overlap between two A346 airframes runs at 95%; between two A343 airframes it's 49%. That's not a bug, that's a real fleet-diversity signal that can be captured.</p>
+<p><em>[SCREENSHOT: A340 sub-variant cluster heatmap — 175/179 (A343), 736/753/764 (A346), 626 (loner) with Jaccard percentages]</em></p>
+<h3>Confidence you can price against</h3>
+<p>Every prediction ships with a <strong>SEXTANT Score</strong> — a Wilson lower-bound confidence adjusted for sample size and fallback depth. High-confidence predictions (real-backed, sub-variant consensus) score above 80. Sparse-data predictions score below 50. When you're staring at a 1,200-position parts list, you don't want to eyeball a probability plot — you want to know which rows to trust cold and which to eyeball. That's what the score is for.</p>
+<h3>Chapter-by-chapter navigation, Closed-box by design</h3>
+<p>Every prediction is grouped by ATA chapter with a first order approximation assigned OCCM category (Major Avionics, Hard-Time, High Sell Through Rate, Category4) tagged per position. Working through the airframe by ATA chapter is how appraisers already think. SEXTANT respects that.</p>
+<p><em>[SCREENSHOT: ground-truth reference sheet — chapter sidebar with per-chapter counts, sticky left columns, one row per position × one column per airframe]</em></p>
+<h2>How it works, briefly</h2>
+<p>SEXTANT began with very sparsely available OCCM data, then the Monte Carlo engine samples per-bucket, per-position, with deterministic seeds derived from a SHA-256 hash of <code>(master_seed, family, sub_variant, cohort, position)</code>. Same seed, same MC, same predictions — every time. Reproducibility is a feature, not a hope.</p>
+<p><em>[SCREENSHOT: decision log — audit trail of every ground-truth construction step, mechanism additions, sub-variant confirmations]</em></p>
+<h2>Try it today</h2>
+<p>SEXTANT launches publicly at [your URL here]. Private walkthrough for teardown houses, lessors, and appraisers — drop me a line.</p>
+<p>— <strong>Daniel Burke</strong>, Church Bay Consulting</p>
+    </div>
+</article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Church Bay Consulting. All rights reserved.</p>
+            <p class="contact-info">burked9@gmail.com | +353 871933409</p>
+        </div>
+    </footer>
+</body>
+
+</html>
