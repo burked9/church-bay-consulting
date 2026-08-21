@@ -81,7 +81,7 @@ Adding a new operator would be a one-file affair. Tuning a rule is a one-line af
 
 ## Try it today
 
-Cypher is now live! Try the web application directly at **[https://churchbayconsulting.com/cypher](https://churchbayconsulting.com/cypher)** (or access it directly on **[GitHub Pages](https://burked9.github.io/cypher/)**). If you'd like a private walkthrough, drop me a line.
+Cypher is now live! Access the project directly on the **[GitHub Repository](https://github.com/burked9/cypher)** (or view the application on **[GitHub Pages](https://burked9.github.io/cypher/)**). If you'd like a private walkthrough, drop me a line.
 
 — **Daniel Burke**, Church Bay Consulting
 
