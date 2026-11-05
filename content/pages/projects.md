@@ -6,6 +6,8 @@ Date: 2023-10-26
 A collection of AI insights, regulatory updates, and open-source projects, free for all to use.
 
 ## Featured Projects
+*   [Flood Monitoring with Physics-Informed Machine Learning (PIML)]({filename}/pages/flood_monitoring_piml.md)
+    *   *Combining physical hydrological constraints with machine learning for flood monitoring and water-level prediction. Coming soon...*
 *   [Cypher — aviation maintenance data, finally on tap]({filename}/pages/cypher.md)
     *   *An in-browser, zero-trust, variant-aware extractor for OCCMs, Hard-Time lists and LLPs.*
 *   [SEXTANT — the fitted-parts prediction engine]({filename}/pages/sextant.md)
